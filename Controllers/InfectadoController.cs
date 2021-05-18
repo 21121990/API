@@ -37,7 +37,6 @@ namespace Api.Controllers
         {
             var infectados = _infectadosCollection.Find(Builders<infectado>.Filter.Empty).ToList();
             return OK(infectados);
-
         }
     }
 }
