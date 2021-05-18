@@ -1,6 +1,8 @@
 using Api.Data.Collections;
+using Api.Models;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Driver;
+using System;
 
 namespace Api.Controllers
 
@@ -11,32 +13,32 @@ namespace Api.Controllers
     public class InfectadoController : ControllerBase
     {
 
-        Data.MongoDB _mongoDB;
+        MongoDB _mongoDB;
         IMongoCollection<infectado> _infectadosCollection;
 
 
-        public InfectadoController(Data.MongoDB mongodb)
+        public InfectadoController(MongoDB mongodb)
         {
             _mongoDB = mongodb;
-            _infectadosCollection = _mongoDB.DB.GetCollection<Infectado>(typeof(infectado).Name.ToLower());
+            _infectadosCollection = _mongoDB.DB.GetCollection<infectado>(typeof(infectado).Name.ToLower());
 
         }
         [HttpPost]
 
-        public ActionResult SalvarInfectado([Frombody] infctadpDto dto)
+        public ActionResult SalvarInfectado([FromBody] InfectadoDto dto)
         {
-            var infectado = new infectado(dto.DataNascimento, dto.Sexo, dto.Latitude, dto.Longitude);
-            _infectadosCollection.insertOne(infectado);
+            var infectadoo = new infectado(dto.DataNascimento, dto.Sexo, dto.Latitude, dto.Longitude);
+            _infectadosCollection.InsertOne(infectadoo);
 
             return StatusCode(201, "Infectado adicionado com sucesso");
 
         }
-        [httpGet]
+        [HttpGet]
 
         public ActionResult ObterInfectados()
         {
             var infectados = _infectadosCollection.Find(Builders<infectado>.Filter.Empty).ToList();
-            return OK(infectados);
+            return Ok(infectados);
         }
     }
 }

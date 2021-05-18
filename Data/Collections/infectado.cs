@@ -5,7 +5,7 @@ namespace Api.Data.Collections
 {
     public class infectado
     {
-        public infectado(DateTime dataNascimento, GeoJson2DGeographicCoordinates localizacao, string sexo, double latitude, double longitude)
+        public infectado(DateTime dataNascimento, string sexo, double latitude, double longitude)
         {
             this.DataNascimento = dataNascimento;
             this.Localizacao =  new GeoJson2DGeographicCoordinates(longitude, latitude);
